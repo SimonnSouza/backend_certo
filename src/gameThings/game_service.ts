@@ -9,6 +9,7 @@ import { CharStruct } from 'src/models/char_model';
 import { MobStruct } from 'src/models/mob_model';
 import { SpellStruct } from 'src/models/spell_model';
 import { LevelStruct } from 'src/models/level_model';
+import { filter } from 'rxjs';
 
 @Injectable()
     export class AllGameServices {
@@ -74,5 +75,16 @@ import { LevelStruct } from 'src/models/level_model';
           
         }
 
+        async getOneChar(recivedName:string){
+            const rightChar = await this.charModel.findOne({char_Name: recivedName}).exec()
+            return rightChar
+        }
 
+        async rightSpellsForChar(charToFilter:string){
+        const rightObject =  await this.getOneChar(charToFilter)
+        const levelOfChar = rightObject.char_Level
+        const everySpell = await this.getAllSpells()
+        const spellsAvailable = everySpell.filter(spellsInside =>(spellsInside.spell_Level <= levelOfChar))
+        return spellsAvailable
+        }
     }

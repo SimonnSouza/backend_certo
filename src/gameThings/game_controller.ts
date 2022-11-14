@@ -70,6 +70,17 @@ export class GameController {
     async getEverySpell(): Promise<Spells[]>{
         return this.GameInjection.getAllSpells()
     }
+    
+    @Get('getCharData:name')
+    async getRightChar(@Param('name') insertedCharName:string){
+        return this.GameInjection.getOneChar(insertedCharName)
+    }
+    
+    @Get('spellsFor:name')
+    async getSpellsForChar(@Param('name') insertedCharName){
+        return this.GameInjection.rightSpellsForChar(insertedCharName)
+    }
+
 
     @Patch('char:id;exp:xp')
     async updateCharExp(@Param('id') charIdToChange:string, @Param('xp') expGained:string) {
