@@ -66,7 +66,7 @@ export class GameController {
     }
 
     
-    @Get('allSpells')
+    @Get('allSpells')  //Não precisa usar isso mais, já que tem como filtrar as spells
     async getEverySpell(): Promise<Spells[]>{
         return this.GameInjection.getAllSpells()
     }
