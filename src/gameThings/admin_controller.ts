@@ -1,5 +1,4 @@
 import { Controller, Get, Body, Post, Patch, Param,  } from '@nestjs/common';
-import { CharStruct } from 'src/models/char_model';
 import { LevelStruct } from 'src/models/level_model';
 import { MobStruct } from 'src/models/mob_model';
 import { SpellStruct } from 'src/models/spell_model';
@@ -28,14 +27,15 @@ function genMonsterId() {
   return monsterPassword
  }
 
- /*---------------------------------------------------------------------------------------------*/ 
 
          /*------------Geração de id automatica-----------*/
          const autoSpellId = genSpellId().toString()
          const autoMonsterId = genMonsterId().toString() 
          /*--------------------------------------------------*/
 
-@Controller()
+ /*---------------------------------------------------------------------------------------------*/
+
+         @Controller()
 export class AdminController {
     constructor(private readonly GameInjection: AllGameServices){}
 
@@ -44,13 +44,13 @@ export class AdminController {
     @Post('formSpells')
     async createNewSpell(
         @Body('spellName') insertedSpellName:string,
-        @Body('spellDamage') insertedSpellDamage:number,
-        @Body('spellLevel') insertedSpellLevel:number,
+        @Body('spellDamage') insertedSpellDamage:string,
+        @Body('spellLevel') insertedSpellLevel:string,
 
         newSpell:SpellStruct = {spell_Id: genSpellId().toString(),
                                 spell_Name: insertedSpellName,
-                                spell_Damage: insertedSpellDamage,
-                                spell_Level: insertedSpellLevel}
+                                spell_Damage: parseFloat(insertedSpellDamage),
+                                spell_Level: parseFloat(insertedSpellLevel)}
     )
     {
         const newSpellCreaed = this.GameInjection.createSpell(newSpell)
@@ -60,15 +60,15 @@ export class AdminController {
     @Post('formMonsters')
     async createNewMob(
         @Body('mobName') insertedMobName:string,
-        @Body('mobLife') insertedMobLife:number,
-        @Body('mobDamage') insertedMobDamage:number,
-        @Body('mobExp') insertedMobExp:number,
+        @Body('mobLife') insertedMobLife:string,
+        @Body('mobDamage') insertedMobDamage:string,
+        @Body('mobExp') insertedMobExp:string,
 
         newMob:MobStruct = {mob_Id:genMonsterId().toString(),
                             mob_Name:insertedMobName,
-                            mob_Life:insertedMobLife,
-                            mob_Damage:insertedMobDamage,
-                            mob_Exp:insertedMobExp}
+                            mob_Life:parseFloat(insertedMobLife),
+                            mob_Damage:parseFloat(insertedMobDamage),
+                            mob_Exp:parseFloat(insertedMobExp)}
     )
     {
         const newMobCreaed = this.GameInjection.createMob(newMob)
@@ -78,13 +78,13 @@ export class AdminController {
     @Post('newLevel')
 
     async createNewLevel (
-        @Body('levelNumber') insertedLevelNumber: number,
-        @Body('expToLevel') insertedExpToLevel: number,
-        @Body('levelHealth') insertedLevelHealth: number,
+        @Body('levelNumber') insertedLevelNumber: string,
+        @Body('expToLevel') insertedExpToLevel: string,
+        @Body('levelHealth') insertedLevelHealth: string,
         
-        newLevel:LevelStruct = {level_Number:insertedLevelNumber,
-                                exp_To_Level:insertedExpToLevel,
-                                level_Hp: insertedLevelHealth}
+        newLevel:LevelStruct = {level_Number:parseFloat(insertedLevelNumber),
+                                exp_To_Level:parseFloat(insertedExpToLevel),
+                                level_Hp: parseFloat(insertedLevelHealth)}
     )
     {
         const newLevelCreated = this.GameInjection.createLevel(newLevel)

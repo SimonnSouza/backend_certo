@@ -9,7 +9,6 @@ import { CharStruct } from 'src/models/char_model';
 import { MobStruct } from 'src/models/mob_model';
 import { SpellStruct } from 'src/models/spell_model';
 import { LevelStruct } from 'src/models/level_model';
-import { filter } from 'rxjs';
 
 @Injectable()
     export class AllGameServices {

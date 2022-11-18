@@ -1,9 +1,5 @@
 import { Controller, Get, Body, Post, Patch, Param,  } from '@nestjs/common';
-import { Number } from 'mongoose';
 import { CharStruct } from 'src/models/char_model';
-import { LevelStruct } from 'src/models/level_model';
-import { MobStruct } from 'src/models/mob_model';
-import { SpellStruct } from 'src/models/spell_model';
 import { Mobs } from 'src/schemas/mob_schema';
 import { Spells } from 'src/schemas/spell_schema';
 import { AllGameServices } from './game_service';
