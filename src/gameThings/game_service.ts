@@ -33,13 +33,27 @@ import { LevelStruct } from 'src/models/level_model';
 
         
         async createChar(charToDatabase: CharStruct): Promise<Chars> {
+            const thisCharExist = this.getOneChar(charToDatabase.char_Name)
+            if(thisCharExist != null) {
+
+                console.log("Já existe um personagem com esse nome")
+                return 
+            } 
             const createChar = new this.charModel(charToDatabase);
+            console.log('Personagem criado com sucesso')
             return createChar.save();
         }
 
         async createLevel(levelToDatabase: LevelStruct): Promise<Levels> {
-            const createNewLevel = new this.levelModel(levelToDatabase)
-            return createNewLevel.save()
+            
+            try{
+                const createNewLevel = new this.levelModel(levelToDatabase)
+                return createNewLevel.save()
+                
+            } catch(error){
+                console.log(error)
+            }
+            
         }
 /*--------------------------------------------------------------------------------------------------------------*/
 

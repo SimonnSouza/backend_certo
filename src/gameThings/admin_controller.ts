@@ -71,6 +71,7 @@ export class AdminController {
                             mob_Exp:parseFloat(insertedMobExp)}
     )
     {
+        
         const newMobCreaed = this.GameInjection.createMob(newMob)
         return console.log ('Mob criado com sucesso')
     }
@@ -82,11 +83,17 @@ export class AdminController {
         @Body('expToLevel') insertedExpToLevel: string,
         @Body('levelHealth') insertedLevelHealth: string,
         
-        newLevel:LevelStruct = {level_Number:parseFloat(insertedLevelNumber),
-                                exp_To_Level:parseFloat(insertedExpToLevel),
-                                level_Hp: parseFloat(insertedLevelHealth)}
+        newLevel:LevelStruct = {
+            level_Number:parseFloat(insertedLevelNumber),
+            exp_To_Level:parseFloat(insertedExpToLevel),
+            level_Hp: parseFloat(insertedLevelHealth),
+            }
     )
     {
+        console.log(newLevel);
+        console.log(insertedLevelHealth)
+        console.log(insertedExpToLevel)
+        console.log(insertedLevelNumber)
         const newLevelCreated = this.GameInjection.createLevel(newLevel)
         return console.log('Level novo adicionado a Base de Dados')
     }

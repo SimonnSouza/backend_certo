@@ -41,13 +41,13 @@ export class GameController {
     )
     {
         const newCharCreated = this.GameInjection.createChar(newChar)
-        return console.log ('Personagem criado com sucesso')
+        return 
     }
 
-    @Get('fightPage:name')
+   /* @Get('fightPage:name')
     async selectedMonsterToFight(@Param('name') selectedMob:string) {
         return this.GameInjection.findMonsterByName(selectedMob)
-    }
+    }*/
 
     
     /*@Get('nextLevel:actualLevel')
