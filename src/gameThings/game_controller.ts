@@ -42,12 +42,12 @@ export class GameController {
     {
         const alreadyExists = await this.GameInjection.existentChar(insertedCharName)
 
-        if (alreadyExists == false){
-       const newCharCreated = this.GameInjection.createChar(newChar)
-       return console.log('Requisição feita com sucesso')
-        }
-
+        if (alreadyExists == true){
+            
         throw new HttpException('Um personagem com esse nome já existe', HttpStatus.FORBIDDEN)        
+       
+        }
+        const newCharCreated = this.GameInjection.createChar(newChar)
     }
 
     @Get('fightPage:indexNumber')
@@ -60,9 +60,9 @@ export class GameController {
     async getNextLevelToCompare(@Param('actualLevel') charLevel) {
         const intoNumber = parseFloat(charLevel)
         return this.GameInjection.nextLevelToCompare(intoNumber)
-    }*/
+    }*/ //só pra ver se funcionava
 
-    @Get('allMonsters')
+    @Get('allMonsters') //mesmo caso, o front tem so que mandar um número
     async getEveryMonter(): Promise<Mobs[]> {
         return this.GameInjection.getAllMobs()
     }

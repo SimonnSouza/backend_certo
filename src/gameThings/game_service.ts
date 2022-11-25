@@ -34,11 +34,7 @@ import { LevelStruct } from 'src/models/level_model';
         
         async createChar(charToDatabase: CharStruct): Promise<Chars> {
             const thisCharExist = this.getOneChar(charToDatabase.char_Name)
-            if(thisCharExist != null) {
-
-                console.log("Já existe um personagem com esse nome")
-                return 
-            } 
+            
             const createChar = new this.charModel(charToDatabase);
             console.log('Personagem criado com sucesso')
             return createChar.save();
@@ -58,13 +54,15 @@ import { LevelStruct } from 'src/models/level_model';
 /*--------------------------------------------------------------------------------------------------------------*/
 
         async existentChar(nameToCheck){
-            const foundChar = this.getOneChar(nameToCheck)
+            const foundChar = await this.getOneChar(nameToCheck)
+            console.log(foundChar)
             if (foundChar != null){
                 var itExists = true
-                return itExists
+                
             }
             else 
             itExists = false
+            console.log(itExists)
             return itExists
         }
 
@@ -78,7 +76,7 @@ import { LevelStruct } from 'src/models/level_model';
         async findMonsterByIndex(monsterIndex: string) {
             const mobListToFilter = await this.getAllMobs()
             const mobToSend = mobListToFilter[parseFloat(monsterIndex)] 
-            return mobToSend
+            return mobToSend.mob_Damage
         }
 
         async nextLevelToCompare(recentLevel:number) {
