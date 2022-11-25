@@ -76,7 +76,7 @@ import { LevelStruct } from 'src/models/level_model';
         async findMonsterByIndex(monsterIndex: string) {
             const mobListToFilter = await this.getAllMobs()
             const mobToSend = mobListToFilter[parseFloat(monsterIndex)] 
-            return mobToSend.mob_Damage
+            return mobToSend
         }
 
         async nextLevelToCompare(recentLevel:number) {
