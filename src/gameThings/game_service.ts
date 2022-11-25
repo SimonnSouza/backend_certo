@@ -57,6 +57,17 @@ import { LevelStruct } from 'src/models/level_model';
         }
 /*--------------------------------------------------------------------------------------------------------------*/
 
+        async existentChar(nameToCheck){
+            const foundChar = this.getOneChar(nameToCheck)
+            if (foundChar != null){
+                var itExists = true
+                return itExists
+            }
+            else 
+            itExists = false
+            return itExists
+        }
+
         async getAllMobs(): Promise<Mobs[]>{
             return this.mobModel.find().exec()
         }
@@ -64,8 +75,10 @@ import { LevelStruct } from 'src/models/level_model';
             return this.spellModel.find().exec()
         }
 
-        async findMonsterByName(monsterName: string) {
-            return this.mobModel.findOne({mob_Name: monsterName}).exec()
+        async findMonsterByIndex(monsterIndex: string) {
+            const mobListToFilter = await this.getAllMobs()
+            const mobToSend = mobListToFilter[parseFloat(monsterIndex)] 
+            return mobToSend
         }
 
         async nextLevelToCompare(recentLevel:number) {

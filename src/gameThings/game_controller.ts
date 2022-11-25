@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Patch, Param,  } from '@nestjs/common';
+import { Controller, Get, Body, Post, Patch, Param, HttpException, HttpStatus,  } from '@nestjs/common';
 import { CharStruct } from 'src/models/char_model';
 import { Mobs } from 'src/schemas/mob_schema';
 import { Spells } from 'src/schemas/spell_schema';
@@ -40,14 +40,20 @@ export class GameController {
                               char_Level:0}
     )
     {
-        const newCharCreated = this.GameInjection.createChar(newChar)
-        return 
+        const alreadyExists = await this.GameInjection.existentChar(insertedCharName)
+
+        if (alreadyExists == false){
+       const newCharCreated = this.GameInjection.createChar(newChar)
+       return console.log('Requisição feita com sucesso')
+        }
+
+        throw new HttpException('Um personagem com esse nome já existe', HttpStatus.FORBIDDEN)        
     }
 
-   /* @Get('fightPage:name')
-    async selectedMonsterToFight(@Param('name') selectedMob:string) {
-        return this.GameInjection.findMonsterByName(selectedMob)
-    }*/
+    @Get('fightPage:indexNumber')
+    async selectedMonsterToFight(@Param('indexNumber') selectedMob:string) {
+        return this.GameInjection.findMonsterByIndex(selectedMob)
+    }
 
     
     /*@Get('nextLevel:actualLevel')
